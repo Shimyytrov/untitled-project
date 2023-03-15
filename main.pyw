@@ -123,7 +123,6 @@ while True:
             core.quit()
             sys.exit()
          if event.type == core.MOUSEBUTTONDOWN:
-            sound_click.play()
             cursor = "click"
          if event.type == core.MOUSEBUTTONUP:
             cursor = "idle"
