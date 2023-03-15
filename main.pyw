@@ -137,7 +137,6 @@ while True:
     
     if tick == 50:
         play_track("cave_ambience", -1, 0)
-    if tick == 100:
         sound_swap1.play()
     tick += 1
     core.display.flip()
