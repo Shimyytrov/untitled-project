@@ -4,6 +4,7 @@ import time
 import sys
 import random
 import json
+import assets.languages.langs as langs
 
 #===== Saves =====#
 settings = {    # default settings
@@ -40,6 +41,7 @@ def play_track(file, loop, fade_ms):    # play track function
     core.mixer.music.load(f'./assets/tracks/{file}.ogg')
     core.mixer.music.play(loop, fade_ms)
 
+clang = settings["lang"]
 intro = True
 tick = 0
 ctime = time.ctime()
@@ -61,6 +63,11 @@ def render_red1(line_text, font, offset): # render logo1line
     logo1_red_rec = logo1_red.get_rect()
     logo1_red_rec.center = (width/2, (height/2)+offset)
     return logo1_red, logo1_red_rec
+
+if clang == "NOS":
+    fontset = font_arialUnicode
+else:
+    fontset = font_mindustry
 while intro:
     mouse_pos = (0, 0)
     screen.fill((0, 0, 0))
@@ -71,20 +78,20 @@ while intro:
          core.quit()
          sys.exit()
     if 0 <= tick <= 49:
-        logo0 = render_logo1("["+ctime+"] "+"Hello world!", font_arialUnicode(18), 0)
+        logo0 = render_logo1("["+ctime+"] "+langs.clang.text_helloWorld[0], font_arialUnicode(18), 0)
         screen.blit(logo0[0], logo0[1])
     if tick == 50:
         sound_title_1.play()
     if 50 <= tick <= 150:
-        logo0 = render_logo1("A Untitled Project", font_mindustry(48), 0)
+        logo0 = render_logo1(langs.clang.text_intro1[0], fontset(48), 0)
         screen.blit(logo0[0], logo0[1])
     if tick == 200:
         sound_title_2.play()
     if 250 <= tick <= 450:
-        logo0 = render_logo1("Produced by", font_mindustry(64), -30)
-        logo1 = render_logo1("Shimyytrov Studio", font_mindustry(48), 30)
-        logoRED0 = render_red1("Produced by", font_mindustry(64), -30)
-        logoRED1 = render_red1("Shimyytrov Studio", font_mindustry(48), 30)
+        logo0 = render_logo1(langs.clang.text_intro2U[0], fontset(64), -30)
+        logo1 = render_logo1(langs.clang.text_intro2D[0], fontset(48), 30)
+        logoRED0 = render_red1(langs.clang.text_intro2U[0], fontset(64), -30)
+        logoRED1 = render_red1(langs.clang.text_intro2D[0], fontset(48), 30)
         screen.blit(logo0[0], logo0[1])
         screen.blit(logo1[0], logo1[1])
         screen.blit(logoRED0[0], logoRED0[1])
@@ -101,7 +108,33 @@ while intro:
     if tick == 450:
         logo1_line_alpha = 0
         logo1_red_alpha = 0
-    if tick == 500:
+    if 450 < tick <= 550:
+        logo0 = render_logo1("Inspired by", fontset(64), -30)
+        logo1 = render_logo1("111% - Random Dice", fontset(48), 30)
+        screen.blit(logo0[0], logo0[1])
+        screen.blit(logo1[0], logo1[1])
+    if 450 < tick <= 475:
+        logo1_line_alpha += 11
+    if tick == 476:
+        logo1_line_alpha = 255
+    if 525 <= tick < 550:
+        logo1_line_alpha -= 11
+    if tick == 550:
+        logo1_line_alpha = 0
+    if 550 < tick <= 650:
+        logo0 = render_logo1("Inspired by", fontset(64), -30)
+        logo1 = render_logo1("Anuke - Mindustry", fontset(48), 30)
+        screen.blit(logo0[0], logo0[1])
+        screen.blit(logo1[0], logo1[1])
+    if 550 < tick <= 575:
+        logo1_line_alpha += 11
+    if tick == 576:
+        logo1_line_alpha = 255
+    if 625 <= tick < 650:
+        logo1_line_alpha -= 11
+    if tick == 650:
+        logo1_line_alpha = 0
+    if tick == 700:
         intro = False
     tick += 1
     core.display.flip()
@@ -110,13 +143,13 @@ while intro:
 # After intro
 cursor_rejected = False
 if settings["default"]:
-    lang_selected2 = False
+    firstLaunch = True
     tick = 0
 elif not settings["default"]:
-    lang_selected2 = True
+    firstLaunch = False
     tick = 0
-while True:
-    screen.fill((0, 0, 0))
+while firstLaunch:
+    screen.fill((0,0,0))
     # events
     for event in core.event.get():
          if event.type == core.KEYDOWN and event.key == core.K_ESCAPE or event.type == core.QUIT: # quit
