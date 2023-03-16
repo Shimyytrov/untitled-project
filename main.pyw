@@ -91,7 +91,7 @@ def lang_pressed(lang, langsec, langcolor, offset): # when langs button pressed
         button_cooldown = True
         lang1_Bcolor = lang2_Bcolor = lang3_Bcolor = lang4_Bcolor = lang5_Bcolor = lang6_Bcolor = 255, 255, 255
         langs.selected_language = langsec
-        settings["Lang"] = f"{langs.selected_language.__name__}"
+        settings["lang"] = f"{langs.selected_language.__name__}"
         save_settings()
         langW, langH = lang.get_size()
         Hlocation = height*(offset/10)
