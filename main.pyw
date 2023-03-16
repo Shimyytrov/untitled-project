@@ -74,9 +74,12 @@ while intro:
 
     # events
     for event in core.event.get():
-        if event.type == core.KEYDOWN and event.key == core.K_ESCAPE or event.type == core.QUIT: # quit
-         core.quit()
-         sys.exit()
+        if event.type == core.QUIT: # quit
+            core.quit()
+            sys.exit()
+        if event.type == core.KEYDOWN and event.key == core.K_ESCAPE: # skip
+            intro = False
+            sound_click.play()
     if 0 <= tick <= 49:
         logo0 = render_logo1("["+ctime+"] "+langs.clang.text_helloWorld[0], font_arialUnicode(18), 0)
         screen.blit(logo0[0], logo0[1])
@@ -141,6 +144,7 @@ while intro:
     fps_clock.tick(fps)
     
 # After intro
+fps = 50
 cursor_rejected = False
 if settings["default"]:
     firstLaunch = True
