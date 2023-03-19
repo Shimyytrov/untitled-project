@@ -79,8 +79,8 @@ while running:
         elif 5*fps <= tick <= 9*fps:
             fade_gb = (255-(max(0, min(255, (int((tick/fps)*200)-1250)))))
             fade_r = (255-(max(0, min(255, (int((tick/fps)*200)-1500)))))
-            src.render_text(fontset(64).render(clang.text_intro2[0], True, (fade_r,fade_gb,fade_gb)), (0,-30))
-            src.render_text(fontset(48).render(clang.text_intro2[1], True, (fade_r,fade_gb,fade_gb)), (0,30))
+            src.render_text(fontset(64).render(clang.text_intro2[0], True, (int((fade_r+fade_gb)/2),fade_gb,fade_gb)), (0,-30))
+            src.render_text(fontset(48).render(clang.text_intro2[1], True, (int((fade_r+fade_gb)/2),fade_gb,fade_gb)), (0,30))
         elif 10*fps <= tick <= 12*fps:
             fade_rgb = max(0, int((sin(1.6*((tick/fps)-10)))*255))
             src.render_text(fontset(64).render("Inspired by", True, (fade_rgb,fade_rgb,fade_rgb)), (0,-30))
